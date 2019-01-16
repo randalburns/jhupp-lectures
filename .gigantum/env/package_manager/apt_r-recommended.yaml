@@ -1,0 +1,6 @@
+# Generated on: 2019-01-16 16:36:48.267340
+manager: "apt"
+package: "r-recommended"
+version: "3.5.1-1bionic"
+from_base: true
+schema: 1

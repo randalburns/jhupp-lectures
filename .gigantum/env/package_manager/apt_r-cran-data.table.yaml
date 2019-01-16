@@ -1,0 +1,6 @@
+# Generated on: 2019-01-16 16:36:48.273496
+manager: "apt"
+package: "r-cran-data.table"
+version: "1.11.4-3cran1ppa0bionic0"
+from_base: true
+schema: 1
