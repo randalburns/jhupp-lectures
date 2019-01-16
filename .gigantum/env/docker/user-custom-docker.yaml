@@ -1,0 +1,5 @@
+content:
+- RUN conda install xeus-cling notebook openmp -c QuantStack -c conda-forge
+description: ''
+name: user-custom-docker
+timestamp_utc: '2019-01-16T16:39:38.129142'
