@@ -1,6 +1,0 @@
-# Generated on: 2019-01-19 19:16:18.703632
-manager: "pip"
-package: "nest_asyncio"
-version: "0.9.10"
-from_base: false
-schema: 1
