@@ -1,0 +1,6 @@
+# Generated on: 2019-01-23 19:37:02.963218
+manager: "apt"
+package: "vim"
+version: "2:8.0.1453-1ubuntu1"
+from_base: false
+schema: 1
