@@ -12,8 +12,10 @@
 
 int main () 
 {
-  #pragma omp parallel for schedule(dynamic,4)
-  for ( int i=0; i<40; i++ )
+  omp_set_num_threads ( 4 );
+
+  #pragma omp parallel for schedule(dynamic,8)
+  for ( int i=0; i<64; i++ )
   { 
     int tid = omp_get_thread_num();
     printf ("%d th iteration of block in thread %d.\n", i, tid);

@@ -23,5 +23,10 @@ main ()
   { 
     printf("OMP Thread# %d, pr++=%d, sh++=%d\n", omp_get_thread_num(), pr++, sh++);
   }
+
+  for (int i=0; i<len; i++)
+  {  	
+    c[i] = a[i] + b[i];	
+  }
 }
 
