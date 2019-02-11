@@ -100,6 +100,46 @@ void stencil_average ( double* input_ar, double* output_ar )
     }
 }
 
+/* Parallelize the stencil computation with OpenMP. */
+void stencil_average_omp ( double* input_ar, double* output_ar )
+{
+    omp_set_num_threads(4);
+    #pragma omp parallel for 
+    for (int x=HWIDTH; x<DIM-HWIDTH; x++) {
+        for (int y=HWIDTH; y<DIM-HWIDTH; y++) {
+            double partial = 0.0;
+            for (int xs=-1*HWIDTH; xs<=HWIDTH; xs++) {
+                for (int ys=-1*HWIDTH; ys<=HWIDTH; ys++) {
+                    partial += input_ar[DIM*(x+xs)+(y+ys)];
+                }   
+            }   
+            output_ar[DIM*x+y] = partial/((2*HWIDTH+1)*(2*HWIDTH+1));
+            partial=0.0;
+        }       
+    }
+}
+
+/* Bad version of parallelized stencil that loses performance
+    because it has a shared variable. */
+void stencil_average_omp_bad ( double* input_ar, double* output_ar )
+{
+    double partial = 0.0;
+    omp_set_num_threads(4);
+    #pragma omp parallel for 
+    for (int x=HWIDTH; x<DIM-HWIDTH; x++) {
+        for (int y=HWIDTH; y<DIM-HWIDTH; y++) {
+            for (int xs=-1*HWIDTH; xs<=HWIDTH; xs++) {
+                for (int ys=-1*HWIDTH; ys<=HWIDTH; ys++) {
+                    partial += input_ar[DIM*(x+xs)+(y+ys)];
+                }   
+            }   
+            output_ar[DIM*x+y] = partial/((2*HWIDTH+1)*(2*HWIDTH+1));
+            partial=0.0;
+        }       
+    }
+}
+
+
 /* Unroll the inner loop of the stencil to increase performance. */
 void stencil_average_unrolled ( double* input_ar, double* output_ar )
 {
@@ -243,7 +283,7 @@ void array_sum ( double* input_ar1, double* input_ar2, double* output_ar )
 void array_sum_omp ( double* input_ar1, double* input_ar2, double* output_ar )
 {
     omp_set_num_threads(4);
-    #pragma omp parallel for schedule(static,64)
+    #pragma omp parallel for 
     for (int x=0; x<DIM; x++) {
         for (int y=0; y<DIM; y++) {
             output_ar[x*DIM+y] = input_ar1[x*DIM+y] + input_ar2[x*DIM+y];
@@ -274,21 +314,6 @@ void fused_stencil_sum_omp ( double* input_ar1, double* input_ar2, double* outpu
         }       
     }
 }
-
-///* Compute a max element */
-//void max_el ( double* input_ar1 )
-//{
-//    omp_set_num_threads(4);
-//    int * maxelarray = malloc(omp_get_num_threads() * sizeof(int));
-//    memset(maxelarray, 0, omp_get_num_threads() * sizeof(int)); 
-//    
-//    #pragma omp parallel for 
-//    for (int x=0; x<DIM; x++) {
-//        for (int y=0; y<DIM; y++) {
-//            output_ar[x*DIM+y] = input_ar1[x*DIM+y] + input_ar2[x*DIM+y];
-//        }        
-//    }
-//}
 
 /* Compute a max element */
 void max_el_shared ( double* input_ar )
