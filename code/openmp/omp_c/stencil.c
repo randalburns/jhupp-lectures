@@ -275,6 +275,49 @@ void fused_stencil_sum_omp ( double* input_ar1, double* input_ar2, double* outpu
     }
 }
 
+///* Compute a max element */
+//void max_el ( double* input_ar1 )
+//{
+//    omp_set_num_threads(4);
+//    int * maxelarray = malloc(omp_get_num_threads() * sizeof(int));
+//    memset(maxelarray, 0, omp_get_num_threads() * sizeof(int)); 
+//    
+//    #pragma omp parallel for 
+//    for (int x=0; x<DIM; x++) {
+//        for (int y=0; y<DIM; y++) {
+//            output_ar[x*DIM+y] = input_ar1[x*DIM+y] + input_ar2[x*DIM+y];
+//        }        
+//    }
+//}
+
+/* Compute a max element */
+void max_el_shared ( double* input_ar )
+{
+    double max_el = 0;
+    omp_set_num_threads(4);
+    
+    #pragma omp parallel for 
+    for (int x=0; x<DIM; x++) {
+        for (int y=0; y<DIM; y++) {
+            max_el = max_el > input_ar[x*DIM+y] ? max_el : input_ar[x*DIM+y]; 
+        }        
+    }
+}
+    
+/* Compute a max element */
+void max_el_reduce ( double* input_ar )
+{
+    double max_el = 0;
+    omp_set_num_threads(4);
+    
+    #pragma omp parallel for reduction ( max: max_el )
+    for (int x=0; x<DIM; x++) {
+        for (int y=0; y<DIM; y++) {
+            max_el = max_el > input_ar[x*DIM+y] ? max_el : input_ar[x*DIM+y]; 
+        }        
+    }
+}
+
 int main()
 {
     double* rand_ar1 = (double*) malloc ( DIM * DIM * sizeof(double));
@@ -393,5 +436,25 @@ int main()
         gettimeofday(&end, NULL);
         timeval_subtract ( &tresult, &begin, &end );
         printf ("fused loops= %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
+    }
+
+    // Get the maximum value out of a filtered array
+    for (int x=0; x<TRIALS; x++)
+    {    
+        gettimeofday(&begin, NULL);
+        max_el_shared(avg_ar1);
+        gettimeofday(&end, NULL);
+        timeval_subtract ( &tresult, &begin, &end );
+        printf ("max el loops= %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
+    }
+
+    // Reduce the maximum value out of a filtered array
+    for (int x=0; x<TRIALS; x++)
+    {    
+        gettimeofday(&begin, NULL);
+        max_el_reduce(avg_ar1);
+        gettimeofday(&end, NULL);
+        timeval_subtract ( &tresult, &begin, &end );
+        printf ("max el reduced= %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
     }
 }
