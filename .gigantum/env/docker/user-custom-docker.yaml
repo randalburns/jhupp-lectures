@@ -4,8 +4,8 @@ content:
 - RUN sed -i 's/"-std=c++14"/"-std=c++14"\,\n      "-fopenmp"/' /opt/conda/share/jupyter/kernels/xeus-cling-cpp14/kernel.json
 - RUN sed -i 's/"-std=c++17"/"-std=c++17"\,\n      "-fopenmp"/' /opt/conda/share/jupyter/kernels/xeus-cling-cpp17/kernel.json
 - RUN wget https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
-- 'RUN unzip ijava-1.2.0.zip '
-- RUN python3 install.py --sys-prefix;
+  && unzip ijava-1.2.0.zip && python3 install.py --sys-prefix && rm -rf ijava-1.2.0.zip
+  install.py
 description: ''
 name: user-custom-docker
-timestamp_utc: '2019-02-13T03:02:25.756054'
+timestamp_utc: '2019-02-13T03:06:08.750155'
