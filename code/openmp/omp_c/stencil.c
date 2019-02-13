@@ -23,7 +23,7 @@
 // Dimension of the array.  Data will be DIM x DIM
 const int DIM = 8192;
 // Number of trials.  Set to get desired confidence intervals.
-const int TRIALS = 2;
+const int TRIALS = 4;
 // HWIDTH = 2 matches the unrolled code.  If you change, comparisons will break.
 const int HWIDTH = 2;
 
@@ -184,45 +184,6 @@ void stencil_average_unrolled ( double* input_ar, double* output_ar )
     }
 }
 
-/* Parallelize the stencil computation with OpenMP. */
-void stencil_average_omp ( double* input_ar, double* output_ar )
-{
-    omp_set_num_threads(4);
-    #pragma omp parallel for 
-    for (int x=HWIDTH; x<DIM-HWIDTH; x++) {
-        for (int y=HWIDTH; y<DIM-HWIDTH; y++) {
-            double partial = 0.0;
-            for (int xs=-1*HWIDTH; xs<=HWIDTH; xs++) {
-                for (int ys=-1*HWIDTH; ys<=HWIDTH; ys++) {
-                    partial += input_ar[DIM*(x+xs)+(y+ys)];
-                }   
-            }   
-            output_ar[DIM*x+y] = partial/((2*HWIDTH+1)*(2*HWIDTH+1));
-            partial=0.0;
-        }       
-    }
-}
-
-/* Bad version of parallelized stencil that loses performance
-    because it has a shared variable. */
-void stencil_average_omp_bad ( double* input_ar, double* output_ar )
-{
-    double partial = 0.0;
-    omp_set_num_threads(4);
-    #pragma omp parallel for 
-    for (int x=HWIDTH; x<DIM-HWIDTH; x++) {
-        for (int y=HWIDTH; y<DIM-HWIDTH; y++) {
-            for (int xs=-1*HWIDTH; xs<=HWIDTH; xs++) {
-                for (int ys=-1*HWIDTH; ys<=HWIDTH; ys++) {
-                    partial += input_ar[DIM*(x+xs)+(y+ys)];
-                }   
-            }   
-            output_ar[DIM*x+y] = partial/((2*HWIDTH+1)*(2*HWIDTH+1));
-            partial=0.0;
-        }       
-    }
-}
-
 /* Parallelize the unrolled stencil computation with OpenMP. */
 void stencil_average_unrolled_omp ( double* input_ar, double* output_ar )
 {
@@ -369,6 +330,8 @@ int main()
         timeval_subtract ( &tresult, &begin, &end );
         printf ("yx = %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
     }
+
+    return 0;
 
     // Performance of serial stencil
     for (int x=0; x<TRIALS; x++)
