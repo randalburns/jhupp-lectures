@@ -23,7 +23,7 @@
 // Dimension of the array.  Data will be DIM x DIM
 const int DIM = 8192;
 // Number of trials.  Set to get desired confidence intervals.
-const int TRIALS = 4;
+const int TRIALS = 2;
 // HWIDTH = 2 matches the unrolled code.  If you change, comparisons will break.
 const int HWIDTH = 2;
 
@@ -282,7 +282,7 @@ void max_el_shared ( double* input_ar )
     double max_el = 0;
     omp_set_num_threads(4);
     
-    #pragma omp parallel for 
+    #pragma omp parallel for shared(max_el)
     for (int x=0; x<DIM; x++) {
         for (int y=0; y<DIM; y++) {
             max_el = max_el > input_ar[x*DIM+y] ? max_el : input_ar[x*DIM+y]; 
@@ -331,8 +331,6 @@ int main()
         printf ("yx = %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
     }
 
-    return 0;
-
     // Performance of serial stencil
     for (int x=0; x<TRIALS; x++)
     {    
@@ -353,6 +351,8 @@ int main()
         printf ("ompstencil avg= %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
     }
 
+
+/*
     // Bad implementation with shared variable.
     for (int x=0; x<TRIALS; x++)
     {    
@@ -362,6 +362,8 @@ int main()
         timeval_subtract ( &tresult, &begin, &end );
         printf ("bad ompstencil avg= %f\n", (double)tresult.tv_sec + (double)tresult.tv_usec/1000000 );
     }
+*/  
+
 
     // Unrolled loop stencil
     for (int x=0; x<TRIALS; x++)
