@@ -1,8 +1,0 @@
-cuda_version: null
-labbook:
-  description: Lectures for JHU CS Parallel Programming, Spring 2019
-  id: 61cba67f3bc347958a2bee82f51a4bef
-  name: jhupp-lectures
-owner:
-  username: randalg
-schema: 1
