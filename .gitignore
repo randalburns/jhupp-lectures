@@ -36,3 +36,7 @@ coverage.xml
 
 # mypy
 .mypy_cache/
+
+
+# Migrated - allow untracked area
+output/untracked
