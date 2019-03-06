@@ -1,0 +1,6 @@
+# Generated on: 2019-03-06 03:41:18.028095
+manager: "apt"
+package: "openmpi-bin"
+version: "2.1.1-8"
+from_base: false
+schema: 2

@@ -1,0 +1,6 @@
+# Generated on: 2019-03-06 03:41:18.024165
+manager: "apt"
+package: "libopenmpi-dev"
+version: "2.1.1-8"
+from_base: false
+schema: 2
