@@ -1,0 +1,6 @@
+# Generated on: 2019-03-11 18:17:44.569707
+manager: "apt"
+package: "openssh-client"
+version: "1:7.6p1-4"
+from_base: false
+schema: 2
