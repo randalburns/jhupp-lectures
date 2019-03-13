@@ -1,17 +1,3 @@
-/*******************************************************************************
-*
-*    $Id: $
-*
-*    Randal C. Burns
-*    Department of Computer Science
-*    Johns Hopkins University
-*
-*    $Source: $
-*    $Date: $        
-*    $Revision: $
-*
-*******************************************************************************/
-
 /*
  * passitforward : a simple MPI program that forwards a 1
  *  circularly around all of the MPI processes
@@ -87,11 +73,3 @@ int main ( int argc, char** argv )
     value = incoming;
   }
 }
-
-/*******************************************************************************
-*
-*  Revsion History 
-*    
-*  $Log: $
-*    
-*******************************************************************************/
