@@ -1,17 +1,3 @@
-/*******************************************************************************
-*
-*    $Id: $
-*
-*    Randal C. Burns
-*    Department of Computer Science
-*    Johns Hopkins University
-*
-*    $Source: $
-*    $Date: $        
-*    $Revision: $
-*
-*******************************************************************************/
-
 /*
  *  onedlife.c : a simple cellular automata that implements a "game of life"
  *  like process in one dimension
@@ -151,11 +137,3 @@ int main ( int argc, char** argv )
     printf ( "%d\n", grid[num_els -1] );
   }
 }
-
-/*******************************************************************************
-*
-*  Revsion History 
-*    
-*  $Log: $
-*    
-*******************************************************************************/
