@@ -8,7 +8,7 @@ content:
   install.py
 - RUN cd /usr/local && wget http://apache.cs.utah.edu/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
   && tar -xvzf hadoop-2.9.2.tar.gz && rm hadoop-2.9.2.tar.gz
-- ENV JAVA_HOME=usr/lib/jvm/java-11-openjdk-amd64/
+- ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 description: ''
 name: user-custom-docker
-timestamp_utc: '2019-04-02T22:10:23.818151'
+timestamp_utc: '2019-04-03T16:44:32.890689'
