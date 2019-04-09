@@ -1,0 +1,6 @@
+# Generated on: 2019-04-09 17:22:16.420702
+manager: "pip"
+package: "matplotlib"
+version: "3.0.3"
+from_base: false
+schema: 2

@@ -1,0 +1,6 @@
+# Generated on: 2019-04-09 17:22:16.411855
+manager: "pip"
+package: "numpy"
+version: "1.16.2"
+from_base: false
+schema: 2

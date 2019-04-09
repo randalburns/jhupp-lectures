@@ -1,0 +1,6 @@
+# Generated on: 2019-04-09 17:22:16.418246
+manager: "pip"
+package: "pyspark"
+version: "2.4.1"
+from_base: false
+schema: 2
