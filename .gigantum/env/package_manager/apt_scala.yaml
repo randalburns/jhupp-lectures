@@ -1,0 +1,6 @@
+# Generated on: 2019-04-09 17:11:32.401932
+manager: "apt"
+package: "scala"
+version: "2.11.12-2"
+from_base: false
+schema: 2
