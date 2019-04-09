@@ -1,0 +1,6 @@
+# Generated on: 2019-04-09 17:44:27.615412
+manager: "pip"
+package: "scipy"
+version: "1.2.1"
+from_base: false
+schema: 2
