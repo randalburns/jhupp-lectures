@@ -9,6 +9,9 @@ content:
 - RUN cd /usr/local && wget http://apache.cs.utah.edu/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
   && tar -xvzf hadoop-2.9.2.tar.gz && rm hadoop-2.9.2.tar.gz
 - ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+- RUN cd /usr/local && wget http://mirror.cc.columbia.edu/pub/software/apache/spark/spark-2.4.1/spark-2.4.1-bin-hadoop2.7.tgz
+  && tar -xvzf spark-2.4.1-bin-hadoop2.7.tgz && rm -rf spark-2.4.1-bin-hadoop2.7.tgz
+- ENV SPARK_HOME /usr/local/spark-2.4.1-bin-hadoop2.7
 description: ''
 name: user-custom-docker
-timestamp_utc: '2019-04-03T16:44:32.890689'
+timestamp_utc: '2019-04-09T17:17:00.374375'
